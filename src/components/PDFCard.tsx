@@ -23,8 +23,6 @@ export const PDFCard = ({pdfName,documentId,isArchived}:{
 
     const handleAddToFavouriteClick = async () => {
         try {
-            console.log(documentId);
-            
             const response = await toast.promise(
                  axios.post('https://be1.piyushxz.online/api/v1/favourite', {
                     document: documentId},
@@ -40,10 +38,8 @@ export const PDFCard = ({pdfName,documentId,isArchived}:{
                     error: isArchived ? `Could not remove ${pdfName} from your favourites`:`Could not add ${pdfName} to your favourites`
                 }
             );
-    
-            console.log(response)
         } catch (err) {
-            console.log(err);
+            // Error handled by toast
         }
     };
     

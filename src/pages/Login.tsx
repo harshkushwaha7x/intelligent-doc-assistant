@@ -30,8 +30,6 @@ const Login: React.FC = () => {
         password,
       });
   
-      console.log(response);
-  
       toast.success("Login successful, redirecting...");
       setActiveUser(response.data.username);
       localStorage.setItem("token", response.data.token);

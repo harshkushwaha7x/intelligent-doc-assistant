@@ -12,8 +12,6 @@ export const AISearch = () => {
     const isLoadingChatHistory = useRecoilValue(isHistoryLoading)
     const params = useParams()
     
-    console.log(params.id, "params")
-    
     const handleInputQuery = async () => {
         if (!inputValue || inputValue.trim().length < 1) {
             return
@@ -39,7 +37,6 @@ export const AISearch = () => {
             setMessages(prev => [...prev, { content: response.data.answer, sentBy: 'Bot' }])
         }
         catch (e) {
-            console.log(e)
             // Reset loading state when query fails
             setIsLoading(false)
         }

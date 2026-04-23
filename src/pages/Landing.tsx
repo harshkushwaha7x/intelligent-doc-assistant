@@ -76,7 +76,7 @@ export const Landing = () => {
 
 
 
-  useMotionValueEvent(sectionScrollYProgress,"change",(latest)=>console.log(latest))
+  // Scroll tracking disabled for production
   const pos = useTransform(sectionScrollYProgress,[0,1],["0px","55vh"])
   const col = useTransform(iconScrollYProgress,[0,1],["#191919","#3B82F6"])
   const col2 = useTransform(iconScrollYProgress2,[0,1],["#191919","#3B82F6"])

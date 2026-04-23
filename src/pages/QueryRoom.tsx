@@ -25,7 +25,6 @@ export const QueryRoom = () => {
 
     if(!loading){
       setAllMessages(history.map((msg) => ({ ...msg, isHistory: true }))); 
-      console.log(allMessages)
     }
 
     return()=>{

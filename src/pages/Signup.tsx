@@ -22,7 +22,6 @@ const Signup: React.FC = () => {
         email,
         password
       })
-      console.log(response)
       toast.success("Signed up successfully")
       navigate('/login')
       setIsLoading(false)

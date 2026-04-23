@@ -29,10 +29,8 @@ export const DeleteModal = ()=>{
                     error: "Failed to delete document. Please try again.",
                 }
             );
-            console.log(response); 
-  
         } catch (e) {
-            console.log(e); 
+            // Error already handled by toast 
         }
     };
     return(

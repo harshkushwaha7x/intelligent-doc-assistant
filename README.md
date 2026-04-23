@@ -4,5 +4,5 @@
 interact with documents using AI. 
 - Built a scalable and secure architecture for easy document handling and enabled interactive document querying, 
 enhancing user productivity. 
-- Backend Deployed on AWS EC2 :[@Github](https://github.com/Piyushxz/DocumentSummerizer_Backend)
+- Backend Deployed on AWS EC2 :[@Github]()
 

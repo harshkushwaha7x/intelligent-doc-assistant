@@ -11,7 +11,6 @@ export const useHistory =  ({roomId}:{
     const [loading,setLoading]= useState(true)
     const setIsHistoryLoading = useSetRecoilState(isHistoryLoading)
 
-    console.log(history)
     useEffect(()=>{
         
         (async ()=>{
@@ -28,7 +27,7 @@ export const useHistory =  ({roomId}:{
                 setIsHistoryLoading(false)
             }
             catch(e){
-                console.log(e)
+                // Error handled by parent component
             }
         
         })()
