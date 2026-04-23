@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { Button } from '../components/Button';
 import { useSetRecoilState } from 'recoil';
 import { loggedInUserName } from '../atoms';
+import { authService } from '../services/authService';
+
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,14 +27,11 @@ const Login: React.FC = () => {
     const loadId = toast.loading("Logging In..")
 
     try {
-      const response = await axios.post("https://be1.piyushxz.online/api/v1/user/signin", {
-        username,
-        password,
-      });
+      const response = await authService.login({ username, password });
   
       toast.success("Login successful, redirecting...");
-      setActiveUser(response.data.username);
-      localStorage.setItem("token", response.data.token);
+      setActiveUser(response.username);
+      authService.setToken(response.token);
       navigate("/dashboard");
     } catch (error) {
       const axiosError = error as AxiosError;

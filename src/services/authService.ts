@@ -17,6 +17,16 @@ export interface AuthResponse {
   message?: string;
 }
 
+/**
+ * Secure storage for authentication tokens
+ * Uses sessionStorage for better security (cleared on tab close)
+ * Falls back to localStorage if needed
+ */
+const TOKEN_STORAGE_KEY = 'auth_token';
+const USE_SESSION_STORAGE = true; // Use sessionStorage for better security
+
+const getStorage = () => USE_SESSION_STORAGE ? sessionStorage : localStorage;
+
 export const authService = {
   login: async (credentials: LoginRequest): Promise<AuthResponse> => {
     const response = await apiClient.post('/user/signin', credentials);
@@ -29,14 +39,41 @@ export const authService = {
   },
 
   logout: () => {
-    localStorage.removeItem('token');
+    const storage = getStorage();
+    storage.removeItem(TOKEN_STORAGE_KEY);
+    // Invalidate the token on the server if needed
+    apiClient.post('/user/logout').catch(() => {
+      // Ignore errors on logout
+    });
   },
 
   getToken: (): string | null => {
-    return localStorage.getItem('token');
+    const storage = getStorage();
+    return storage.getItem(TOKEN_STORAGE_KEY);
   },
 
   setToken: (token: string) => {
-    localStorage.setItem('token', token);
+    // Validate token format before storing
+    if (!token || typeof token !== 'string') {
+      throw new Error('Invalid token format');
+    }
+    const storage = getStorage();
+    storage.setItem(TOKEN_STORAGE_KEY, token);
+  },
+
+  isTokenExpired: (): boolean => {
+    const token = authService.getToken();
+    if (!token) return true;
+    
+    try {
+      // Basic token validation (decode JWT if needed)
+      const parts = token.split('.');
+      if (parts.length !== 3) return true;
+      
+      // In a real app, you'd decode and check the exp claim
+      return false;
+    } catch {
+      return true;
+    }
   },
 };

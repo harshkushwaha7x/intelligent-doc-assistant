@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { toast } from 'sonner';
+import { authService } from '../services/authService';
+
 const Signup: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ const Signup: React.FC = () => {
     try {
 
       setIsLoading(true)
-      const response = await axios.post('https://be1.piyushxz.online/api/v1/user/signup',{
+      const response = await authService.signup({
         username,
         email,
         password
