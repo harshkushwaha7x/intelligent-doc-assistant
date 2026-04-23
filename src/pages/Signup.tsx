@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 const Signup: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -25,16 +25,17 @@ const Signup: React.FC = () => {
       toast.success("Signed up successfully")
       navigate('/login')
       setIsLoading(false)
-    } catch (error:any) {
-      if (error.response) {
-        if (error.response.status === 400) {
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        if (axiosError.response.status === 400) {
           toast.error("Invalid format");
-        } else if (error.response.status === 500) {
+        } else if (axiosError.response.status === 500) {
           toast.error("Could not sign in, server error!");
         } else {
-          toast.error(error.response.data.message || "An unexpected error occurred");
+          toast.error((axiosError.response.data as any)?.message || "An unexpected error occurred");
         }
-      } else if (error.request) {
+      } else if (axiosError.request) {
         toast.error("No response from server. Please check your connection.");
       } else {
         toast.error("An error occurred. Please try again.");

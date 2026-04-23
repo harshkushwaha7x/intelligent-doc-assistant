@@ -1,18 +1,19 @@
 import { atom } from "recoil";
+import type { ChatMessage } from "./types";
 
 export interface Message{
-    content:string,
-    sentBy:'User' | 'Bot',
-    isHistory?:boolean
-}
-interface Document{
-    documentName:string | null,
-    documentId:string | null
+    content: string;
+    sentBy: 'User' | 'Bot';
+    isHistory?: boolean;
 }
 
+interface DocumentData {
+    documentName: string | null;
+    documentId: string | null;
+}
 
-interface SidebarOptipon  {
-    option : 'home' | 'fav' |'doc'
+interface SidebarOption {
+    option: 'home' | 'fav' | 'doc';
 }
 
 
@@ -21,7 +22,7 @@ export const loggedInUserName = atom({
     default:""
 })
 
-export const activeDocumentData = atom<Document>({
+export const activeDocumentData = atom<DocumentData>({
     key:"activeDocumentData",
     default:{documentId:null,documentName:null}
 })
@@ -70,7 +71,7 @@ export const isDeleteModalOpen = atom<boolean>({
 })
 
 
-export const activeSidebarOption = atom <SidebarOptipon>({
+export const activeSidebarOption = atom<SidebarOption>({
     key:"activeSidebarOption",
     default:{option:'home'}
 })

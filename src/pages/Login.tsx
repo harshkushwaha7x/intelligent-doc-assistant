@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { Button } from '../components/Button';
 import { useSetRecoilState } from 'recoil';
@@ -34,17 +34,18 @@ const Login: React.FC = () => {
       setActiveUser(response.data.username);
       localStorage.setItem("token", response.data.token);
       navigate("/dashboard");
-    } catch (error: any) {
-      if (error.response) {
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
         // Server responded with a status code outside of 2xx
-        if (error.response.status === 404) {
+        if (axiosError.response.status === 404) {
           toast.error("User does not exist");
-        } else if (error.response.status === 500) {
+        } else if (axiosError.response.status === 500) {
           toast.error("Could not sign in, server error!");
         } else {
-          toast.error(error.response.data.message || "An unexpected error occurred");
+          toast.error((axiosError.response.data as any)?.message || "An unexpected error occurred");
         }
-      } else if (error.request) {
+      } else if (axiosError.request) {
         toast.error("No response from server. Please check your connection.");
       } else {
         toast.error("An error occurred. Please try again.");
