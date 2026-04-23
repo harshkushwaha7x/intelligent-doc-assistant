@@ -1,18 +1,19 @@
-import { useState } from "react"
+import { useState, useCallback, memo } from "react"
 import { SearchIcon } from "./icons/SearchIcon";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isAIResultLoading, isHistoryLoading, messages } from "../atoms";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { documentService } from "../services/documentService";
+import { authService } from "../services/authService";
 
-export const AISearch = () => {
+const AISearchComponent = () => {
     const [inputValue, setInputValue] = useState("");
     const setIsLoading = useSetRecoilState(isAIResultLoading)
     const setMessages = useSetRecoilState(messages)
     const isLoadingChatHistory = useRecoilValue(isHistoryLoading)
     const params = useParams()
     
-    const handleInputQuery = async () => {
+    const handleInputQuery = useCallback(async () => {
         if (!inputValue || inputValue.trim().length < 1) {
             return
         }
@@ -22,32 +23,26 @@ export const AISearch = () => {
         
         try {
             setIsLoading(true)
-            const response = await axios.post(`https://be1.piyushxz.online/api/v1/query/${params.id}`, {
-                query: input,
-            }, {
-                headers: {
-                    Authorization: localStorage.getItem("token")
-                }
-            })
+            const response = await documentService.queryDocument(params.id || '', input);
             
             // Clear input field after successful query
             setInputValue("");
             
             setIsLoading(false)
-            setMessages(prev => [...prev, { content: response.data.answer, sentBy: 'Bot' }])
+            setMessages(prev => [...prev, { content: response.response, sentBy: 'Bot' }])
         }
         catch (e) {
             // Reset loading state when query fails
             setIsLoading(false)
         }
-    }
+    }, [inputValue, params.id, setIsLoading, setMessages])
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
+    const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleInputQuery();
         }
-    }
+    }, [handleInputQuery])
     
     if (!isLoadingChatHistory)
         return (
