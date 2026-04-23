@@ -41,23 +41,37 @@ export const AISearch = () => {
             setIsLoading(false)
         }
     }
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleInputQuery();
+        }
+    }
     
     if (!isLoadingChatHistory)
         return (
             <div className="w-[90vw] shadow-2xl md:w-[50vw] min-h-[3rem] md:min-h-[5rem] rounded-2xl bg-[#191919] font-primary border border-gray-500/20 flex flex-col p-2 md:p-4">
+                <label htmlFor="query-input" className="sr-only">
+                    Ask your PDF
+                </label>
                 <textarea
+                    id="query-input"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    aria-label="Query input for PDF"
                     className="bg-[#191919] text-white w-full font-primary p-2 resize-none flex-grow outline-none
                      font-medium text-sm md:text-md placeholder:text-white/40
-                    transition-colors duration-200 focus:ring-0 rounded-2xl"
-                    placeholder="Ask your PDF..."
+                    transition-colors duration-200 focus:ring-2 focus:ring-blue-500 rounded-2xl"
+                    placeholder="Ask your PDF... (Press Enter to send)"
                 ></textarea>
                 
                 <div className="w-full flex justify-end items-center mt-2 p-2">
                     <button
                         onClick={handleInputQuery}
-                        className="border cursor-pointer border-white bg-white border-opacity-40 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-50 transition"
+                        aria-label="Send query"
+                        className="border cursor-pointer border-white bg-white border-opacity-40 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-50 transition focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     >
                         <SearchIcon classname="w-5 h-5 text-black" />
                     </button>

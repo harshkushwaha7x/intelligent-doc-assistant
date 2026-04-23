@@ -5,10 +5,24 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "./Button";
 import DeleteIcon from "./icons/DeleteIcon";
+import { useEffect, useRef } from "react";
 
 export const DeleteModal = ()=>{
     const {documentId,documentName}= useRecoilValue(activeDocumentData)
     const setIsDelModalOpen = useSetRecoilState(isDeleteModalOpen)
+    const dialogRef = useRef<HTMLDivElement>(null);
+
+    // Handle Escape key to close modal
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setIsDelModalOpen(false);
+            }
+        };
+        
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [setIsDelModalOpen]);
     const handleDocumentDelete = async () => {
         try {
 
@@ -35,7 +49,8 @@ export const DeleteModal = ()=>{
     };
     return(
         
-        <motion.div 
+        <motion.div
+        ref={dialogRef}
         initial={{ opacity: 0, scale: 0.9 }} 
         animate={{ opacity: 1, scale: 1 }}  
         exit={{ opacity: 0,scale:0.9}} 
