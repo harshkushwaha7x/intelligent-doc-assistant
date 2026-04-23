@@ -13,34 +13,36 @@ import { isContentModalOpen, isDeleteModalOpen } from "./atoms"
 import { Toaster } from "sonner"
 import { AnimatePresence } from "motion/react"
 import Aboutus from "./components/Aboutus"
+import { ErrorBoundary } from "./components/ErrorBoundary"
 
 
 function App() {
   const isContentModalOp = useRecoilValue(isContentModalOpen)
   const isDelModalOpen = useRecoilValue(isDeleteModalOpen)
   return (
+    <ErrorBoundary>
+      <>
+        <Toaster theme="dark" richColors/>
 
-    <>
-      <Toaster theme="dark" richColors/>
-
-      <AnimatePresence>
-        {isContentModalOp && <Modal />}
-        {isDelModalOpen && <DeleteModal/>}
-      </AnimatePresence>
+        <AnimatePresence>
+          {isContentModalOp && <Modal />}
+          {isDelModalOpen && <DeleteModal/>}
+        </AnimatePresence>
 
 
-      <Routes>
-        <Route path="/" element={<Landing/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Routes>
+          <Route path="/" element={<Landing/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
 
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
-        <Route path="/aboutus" element={<Aboutus/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/aboutus" element={<Aboutus/>}/>
 
-        <Route path="/:id" element={<QueryRoom/>}/>
+          <Route path="/:id" element={<QueryRoom/>}/>
 
-      </Routes>
-    </>
+        </Routes>
+      </>
+    </ErrorBoundary>
   )
 }
 
