@@ -98,11 +98,17 @@ const Signup: React.FC = () => {
             <div className="space-y-4">
 
               <div>
+                <label htmlFor="email" className="block text-white text-sm font-medium mb-2">
+                  Email Address
+                </label>
                 <input
+                  id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
+                  aria-required="true"
+                  aria-label="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-gray-800 w-full text-sm font-primary text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
@@ -110,23 +116,35 @@ const Signup: React.FC = () => {
                 />
               </div>
               <div>
+                <label htmlFor="signup-username" className="block text-white text-sm font-medium mb-2">
+                  Username
+                </label>
                 <input
+                  id="signup-username"
                   name="username"
                   type="text"
                   autoComplete="username"
                   required
+                  aria-required="true"
+                  aria-label="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="bg-gray-800 w-full  font-primary text-sm text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-gray-800 w-full font-primary text-sm text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Username"
                 />
               </div>
               <div>
+                <label htmlFor="signup-password" className="block text-white text-sm font-medium mb-2">
+                  Password
+                </label>
                 <input
+                  id="signup-password"
                   name="password"
                   type="password"
                   autoComplete="new-password"
                   required
+                  aria-required="true"
+                  aria-label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-gray-800 w-full font-primary text-sm text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"

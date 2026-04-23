@@ -81,11 +81,17 @@ const Login: React.FC = () => {
 
             <div className="space-y-4">
               <div>
+                <label htmlFor="username" className="block text-white text-sm font-medium mb-2">
+                  Username
+                </label>
                 <input
+                  id="username"
                   name="username"
                   type="text"
                   autoComplete="username"
                   required
+                  aria-required="true"
+                  aria-label="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="bg-gray-800 font-primary w-full text-sm text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
@@ -93,14 +99,20 @@ const Login: React.FC = () => {
                 />
               </div>
               <div>
+                <label htmlFor="password" className="block text-white text-sm font-medium mb-2">
+                  Password
+                </label>
                 <input
+                  id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
+                  aria-required="true"
+                  aria-label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-gray-800 font-primary w-full text-sm text-white px-4 py-3.5 rounded-md o focus:ring-2 focus:ring-blue-500"
+                  className="bg-gray-800 font-primary w-full text-sm text-white px-4 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Password"
                 />
               </div>

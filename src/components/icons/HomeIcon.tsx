@@ -11,6 +11,8 @@ const HomeIcon = ({ size = 24, color = "currentColor", ...props }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
         className="lucide lucide-house"
+        aria-label="Home"
+        role="img"
         {...props}
       >
         <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />

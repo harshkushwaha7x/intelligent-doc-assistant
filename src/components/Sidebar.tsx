@@ -28,6 +28,8 @@ export const Sidebar = () => {
                 damping: 20,
             }}
             className="bg-black top-0 left-0 w-70 h-screen fixed z-100 border-r border-gray-300/20"
+            role="navigation"
+            aria-label="Main navigation"
         >
             <div className="flex px-2 py-2 items-center border-b border-gray-300/20">
                 <SidebarOpenIcon onClick={() => setIsSidebarOpen(val => !val)} />
