@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { CloseIcon } from "./icons/CloseIcon";
 import DeleteIcon from "./icons/DeleteIcon";
 import { useRef } from "react";
+<<<<<<< HEAD
 import { validateDocumentName, validateFile } from "../utils/validation";
 import { documentService } from "../services/documentService";
 
@@ -48,6 +49,49 @@ export const Modal = () => {
       console.error('Upload error:', err);
     }
   };
+=======
+import axios from "axios";
+
+export const Modal = () => {
+    const  setIsModalOpen = useSetRecoilState(isContentModalOpen);
+    const inputRef = useRef<HTMLInputElement>(null)
+    const [fileVal,setFileVal] = useRecoilState(isFileSelected)
+
+    const handleUploadFile = async () => {
+        if (!fileVal) {
+            toast.error("Please Select a PDF");
+            return;
+        }
+        if (!inputRef.current?.value) {
+            toast.error("Please add a name!");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("file", fileVal);
+        formData.append("documentName", inputRef.current.value);
+    
+        try {
+            await toast.promise(
+                axios.post(`https://be1.piyushxz.online/api/v1/upload`, formData, {
+                    headers: {
+                        Authorization:localStorage.getItem("token"),
+                    },
+                }),
+                {
+                    loading: "Uploading...",
+                    success: `${inputRef.current?.value} has been added`,
+                    error: "Upload failed",
+                }
+            );
+    
+            setIsModalOpen(false);
+            setFileVal(null);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+>>>>>>> 2870c723052178e53dc60e05798d5ffa68d3fe11
     
     return (
    
