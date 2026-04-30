@@ -1,10 +1,10 @@
-import { useState, useCallback, memo } from "react"
+import { useState, useCallback, memo, useRef, useEffect } from "react"
 import { SearchIcon } from "./icons/SearchIcon";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isAIResultLoading, isHistoryLoading, messages } from "../atoms";
 import { useParams } from "react-router-dom";
 import { documentService } from "../services/documentService";
-import { authService } from "../services/authService";
+import { MESSAGE_SENDER } from "../constants";
 
 const AISearchComponent = () => {
     const [inputValue, setInputValue] = useState("");
@@ -12,28 +12,43 @@ const AISearchComponent = () => {
     const setMessages = useSetRecoilState(messages)
     const isLoadingChatHistory = useRecoilValue(isHistoryLoading)
     const params = useParams()
+    const abortControllerRef = useRef<AbortController | null>(null);
+    
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
     
     const handleInputQuery = useCallback(async () => {
         if (!inputValue || inputValue.trim().length < 1) {
             return
         }
         
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+        
+        abortControllerRef.current = new AbortController();
+        
         const input = inputValue.trim()
-        setMessages(prev => [...prev, { content: input, sentBy: 'User' }])
+        setMessages(prev => [...prev, { content: input, sentBy: MESSAGE_SENDER.USER }])
         
         try {
             setIsLoading(true)
             const response = await documentService.queryDocument(params.id || '', input);
             
-            // Clear input field after successful query
             setInputValue("");
             
             setIsLoading(false)
-            setMessages(prev => [...prev, { content: response.response, sentBy: 'Bot' }])
+            setMessages(prev => [...prev, { content: response.response, sentBy: MESSAGE_SENDER.BOT }])
         }
-        catch (e) {
-            // Reset loading state when query fails
-            setIsLoading(false)
+        catch (e: any) {
+            if (e.name !== 'AbortError') {
+                setIsLoading(false)
+            }
         }
     }, [inputValue, params.id, setIsLoading, setMessages])
 
@@ -74,3 +89,5 @@ const AISearchComponent = () => {
             </div>
         )
 }
+
+export const AISearch = memo(AISearchComponent);
