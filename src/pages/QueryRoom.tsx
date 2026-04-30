@@ -1,37 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { Navbar } from "../components/DashboardNavbar";
 import { QueryBox } from "../components/QueryBox";
 import { AISearch } from "../components/SearchBar";
 import { Sidebar } from "../components/Sidebar";
-import {  useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { activeSidebarOption, Message, messages } from "../atoms";
 import { useParams } from "react-router-dom";
 import { useHistory } from "../hooks/useHistory";
 
-
 export const QueryRoom = () => {
-
   const setActiveSidebarOption = useSetRecoilState(activeSidebarOption)
-    const [allMessages,setAllMessages] = useRecoilState(messages)
+  const [allMessages, setAllMessages] = useRecoilState(messages)
   
   const params = useParams()
   const id = params.id
 
   const { history, loading } = useHistory({ roomId: id }) as { history: Message[]; loading: boolean };
 
-  useEffect(()=>{
+  useEffect(() => {
+    setActiveSidebarOption({ option: "doc" })
 
-    setActiveSidebarOption({option:"doc"})
-
-    if(!loading){
+    if (!loading) {
       setAllMessages(history.map((msg) => ({ ...msg, isHistory: true }))); 
     }
 
-    return()=>{
+    return () => {
       setAllMessages([])
     }
-
-  },[history])
+  }, [history, loading, setActiveSidebarOption, setAllMessages])
 
   return (
     <div>
