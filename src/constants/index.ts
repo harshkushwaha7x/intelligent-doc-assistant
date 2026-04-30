@@ -14,8 +14,8 @@ export const API_ENDPOINTS = {
 } as const;
 
 export const MESSAGE_SENDER = {
-  USER: 'User',
-  BOT: 'Bot',
+  USER: 'User' as const,
+  BOT: 'Bot' as const,
 } as const;
 
 export const SIDEBAR_OPTIONS = {
