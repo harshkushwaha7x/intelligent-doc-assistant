@@ -1,6 +1,6 @@
 import { AnimatedAIResult } from "./AnimatedAIResult";
 import { RobotIcon } from "./icons/RobotIcon";
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 
 interface ChatBubbleProps {
   variant: "User" | "Bot";
@@ -13,7 +13,7 @@ const ChatBubbleStyles = {
   sender: " bg-[#191919] text-white ",
 };
 
-export const ChatBubble = forwardRef<HTMLDivElement, ChatBubbleProps>((props, ref) => {
+const ChatBubbleComponent = forwardRef<HTMLDivElement, ChatBubbleProps>((props, ref) => {
   return (
     <div
       ref={ref}
@@ -52,4 +52,6 @@ export const ChatBubble = forwardRef<HTMLDivElement, ChatBubbleProps>((props, re
   );
 });
 
-ChatBubble.displayName = 'ChatBubble';
+ChatBubbleComponent.displayName = 'ChatBubble';
+
+export const ChatBubble = memo(ChatBubbleComponent);
