@@ -11,7 +11,7 @@ import { authService } from '../services/authService';
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading,setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const setActiveUser = useSetRecoilState(loggedInUserName)
 
@@ -36,7 +36,6 @@ const Login: React.FC = () => {
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        // Server responded with a status code outside of 2xx
         if (axiosError.response.status === 404) {
           toast.error("User does not exist");
         } else if (axiosError.response.status === 500) {
