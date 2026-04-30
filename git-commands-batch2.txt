@@ -1,0 +1,29 @@
+git add src/hooks/useDebounce.ts
+git commit -m "feat: add useDebounce custom hook for input optimization"
+
+git add src/components/LoadingSkeleton.tsx
+git commit -m "feat: add loading skeleton components for better UX"
+
+git add src/components/ChatBubble.tsx
+git commit -m "perf: memoize ChatBubble component to prevent unnecessary re-renders"
+
+git add src/components/SearchBar.tsx
+git commit -m "feat: add request cancellation and use MESSAGE_SENDER constant"
+
+git add src/pages/Login.tsx
+git commit -m "refactor: clean up comments in Login component"
+
+git add src/pages/QueryRoom.tsx
+git commit -m "fix: add proper dependency array to QueryRoom useEffect"
+
+git add src/components/QueryBox.tsx
+git commit -m "perf: optimize QueryBox scrolling with useMemo"
+
+git add src/pages/DashBoard.tsx
+git commit -m "feat: add loading skeletons to Dashboard component"
+
+git add src/constants/index.ts
+git commit -m "refactor: improve MESSAGE_SENDER type safety with const assertions"
+
+git add .
+git commit -m "chore: ensure all changes are committed"
