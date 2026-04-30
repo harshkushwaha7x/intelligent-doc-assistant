@@ -1,9 +1,8 @@
 import { useRecoilValue } from "recoil";
 import { ChatBubble } from "./ChatBubble";
 import { isAIResultLoading, isHistoryLoading, messages } from "../atoms";
-import { useRef } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { ChatBubbleLoading } from "./ChatBubbleLoading";
-import { useEffect } from "react";
 import { ThreeDot } from "react-loading-indicators";
 
 export const QueryBox = () => {
@@ -14,28 +13,27 @@ export const QueryBox = () => {
   const isLoading = useRecoilValue(isAIResultLoading);
   const isLoadingChatHistory = useRecoilValue(isHistoryLoading);
 
+  const messagesLength = useMemo(() => allMessages.length, [allMessages.length]);
+
   useEffect(() => {
     const scrollToNewMessage = () => {
-      // If loading, scroll to the loading bubble with offset for navbar
       if (isLoading && loadingRef.current) {
         loadingRef.current.scrollIntoView({
           behavior: 'smooth',
-          block: 'start' // This ensures it scrolls to the top of the element
+          block: 'start'
         });
       } else if (lastMessageRef.current) {
-        // Scroll to the start of the last message instead of bottom
         lastMessageRef.current.scrollIntoView({
           behavior: 'smooth',
-          block: 'start' // This shows the top of the message
+          block: 'start'
         });
       }
     };
 
-    // Only scroll when there are messages
-    if (allMessages.length > 0) {
+    if (messagesLength > 0) {
       scrollToNewMessage();
     }
-  }, [allMessages.length, isLoading]); // Changed dependency to allMessages.length
+  }, [messagesLength, isLoading]);
 
   return (
     <div className="flex flex-col gap-2 p-2 w-full">
