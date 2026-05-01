@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { CONFIG } from '../config';
 import { TOKEN_STORAGE_KEY, CSRF_TOKEN_KEY } from '../constants';
 
@@ -34,7 +34,7 @@ apiClient.interceptors.request.use(
 
     return config;
   },
-  (error) => {
+  (error: AxiosError) => {
     return Promise.reject(error);
   }
 );
@@ -47,7 +47,11 @@ apiClient.interceptors.response.use(
     }
     return response;
   },
-  (error) => {
+  (error: AxiosError) => {
+    if (error.code === 'ECONNABORTED') {
+      console.error('Request timeout');
+    }
+
     if (error.response?.status === 401) {
       sessionStorage.removeItem(TOKEN_STORAGE_KEY);
       sessionStorage.removeItem(CSRF_TOKEN_KEY);
