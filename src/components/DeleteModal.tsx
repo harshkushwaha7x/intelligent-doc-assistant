@@ -1,14 +1,14 @@
-import{motion} from "motion/react"
+import { motion } from "motion/react"
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { activeDocumentData, isDeleteModalOpen } from "../atoms";
-import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "./Button";
 import DeleteIcon from "./icons/DeleteIcon";
 import { useEffect, useRef } from "react";
+import { documentService } from "../services/documentService";
 
-export const DeleteModal = ()=>{
-    const {documentId,documentName}= useRecoilValue(activeDocumentData)
+export const DeleteModal = () => {
+    const { documentId, documentName } = useRecoilValue(activeDocumentData)
     const setIsDelModalOpen = useSetRecoilState(isDeleteModalOpen)
     const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -19,27 +19,19 @@ export const DeleteModal = ()=>{
                 setIsDelModalOpen(false);
             }
         };
-        
+
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [setIsDelModalOpen]);
+
     const handleDocumentDelete = async () => {
         try {
-
             setIsDelModalOpen(false)
-            const response = await toast.promise(
-                axios.delete(`https://be1.piyushxz.online/api/v1/documents`, {
-                    headers: {
-                        Authorization:
-                            localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    data: { documentId },
-                    
-                }),
+            await toast.promise(
+                documentService.deleteDocument(documentId),
                 {
                     loading: "Deleting...",
-                    success: () => "Document has been deleted successfully!",
+                    success: "Document has been deleted successfully!",
                     error: "Failed to delete document. Please try again.",
                 }
             );
