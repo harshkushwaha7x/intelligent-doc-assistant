@@ -5,19 +5,12 @@ import { Sidebar } from "../components/Sidebar"
 import { useDocument } from "../hooks/useDocuments"
 import { isContentModalOpen, loggedInUserName } from "../atoms"
 import PlusIcon from "../components/icons/PlusIcon"
-import { useEffect } from "react"
 import { DocumentCardSkeleton } from "../components/LoadingSkeleton"
 
 export const Dashboard = () => {
     const { documents, isLoadingDocs } = useDocument()
     const setContentOpenStatus = useSetRecoilState(isContentModalOpen)
     const username = useRecoilValue(loggedInUserName)
-
-    useEffect(() => {
-        return () => {
-            // Cleanup if needed
-        }
-    }, [])
     
     return (
         <div className="">
