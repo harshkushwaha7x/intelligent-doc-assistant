@@ -34,7 +34,7 @@ export const Navbar = () => {
       >
         <div className="w-[70vw] md:w-[80vw] flex justify-between items-center">
           <h1 className="font-primary font-extrabold text-3xl tracking-tighter bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">
-            sanityAI
+            DocuChat
           </h1>
 
 

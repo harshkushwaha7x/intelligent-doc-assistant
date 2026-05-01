@@ -7,7 +7,7 @@ export const Footer = () => {
             
             <div className="flex flex-col items-center lg:items-start">
               <div className="h-48 w-48 flex justify-center items-center">
-                <h1 className="font-primary tracking-tighter text-4xl font-black  bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">sanityAI</h1>
+                <h1 className="font-primary tracking-tighter text-4xl font-black  bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">DocuChat</h1>
               </div>
             </div>
   

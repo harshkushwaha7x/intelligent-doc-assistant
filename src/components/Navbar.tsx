@@ -22,7 +22,7 @@ export const Navbar = () => {
             className="font-primary font-extrabold text-[#FDFEFF] text-3xl tracking-tighter bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent cursor-pointer"
             onClick={() => navigate("/")}
           >
-            sanityAI
+            DocuChat
           </h1>
 
           <div className="hidden md:flex items-center space-x-4">
