@@ -45,8 +45,8 @@ const AISearchComponent = () => {
             setIsLoading(false)
             setMessages(prev => [...prev, { content: response.response, sentBy: MESSAGE_SENDER.BOT }])
         }
-        catch (e: any) {
-            if (e.name !== 'AbortError') {
+        catch (e: unknown) {
+            if (e instanceof Error && e.name !== 'AbortError') {
                 setIsLoading(false)
             }
         }
@@ -91,3 +91,4 @@ const AISearchComponent = () => {
 }
 
 export const AISearch = memo(AISearchComponent);
+AISearch.displayName = 'AISearch';
