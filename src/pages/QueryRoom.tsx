@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Navbar } from "../components/DashboardNavbar";
 import { QueryBox } from "../components/QueryBox";
 import { AISearch } from "../components/SearchBar";
@@ -10,7 +10,7 @@ import { useHistory } from "../hooks/useHistory";
 
 export const QueryRoom = () => {
   const setActiveSidebarOption = useSetRecoilState(activeSidebarOption)
-  const [allMessages, setAllMessages] = useRecoilState(messages)
+  const [, setAllMessages] = useRecoilState(messages)
   
   const params = useParams()
   const id = params.id
