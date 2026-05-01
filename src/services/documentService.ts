@@ -33,7 +33,9 @@ export const documentService = {
   },
 
   deleteDocument: async (documentId: string): Promise<{ message: string }> => {
-    const response = await apiClient.delete(`${API_ENDPOINTS.DOCUMENTS}/${documentId}`);
+    const response = await apiClient.delete(API_ENDPOINTS.DOCUMENTS, {
+      data: { documentId },
+    });
     return response.data;
   },
 
@@ -43,6 +45,13 @@ export const documentService = {
   ): Promise<{ response: string }> => {
     const response = await apiClient.post(`${API_ENDPOINTS.DOCUMENTS}/${documentId}/query`, {
       query,
+    });
+    return response.data;
+  },
+
+  toggleFavorite: async (documentId: string): Promise<{ message: string }> => {
+    const response = await apiClient.post(API_ENDPOINTS.FAVOURITE, {
+      document: documentId,
     });
     return response.data;
   },
