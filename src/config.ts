@@ -1,8 +1,18 @@
-export const CONFIG = {
-  API_URL: import.meta.env.VITE_API_URL || 'https://be1.piyushxz.online/api/v1',
-  POLLING_INTERVAL: 10000, // 10 seconds
-  REQUEST_TIMEOUT: 10000,
+const getEnvVar = (key: string, defaultValue?: string): string => {
+  const value = import.meta.env[key] || defaultValue;
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
 };
+
+export const CONFIG = {
+  API_URL: getEnvVar('VITE_API_URL', 'https://be1.piyushxz.online/api/v1'),
+  APP_NAME: getEnvVar('VITE_APP_NAME', 'Intelligent Document Assistant'),
+  POLLING_INTERVAL: 10000,
+  REQUEST_TIMEOUT: 10000,
+  MAX_FILE_SIZE: 4 * 1024 * 1024,
+} as const;
 
 export const ROUTES = {
   HOME: '/',
@@ -10,7 +20,7 @@ export const ROUTES = {
   SIGNUP: '/signup',
   DASHBOARD: '/dashboard',
   QUERY_ROOM: '/query-room',
-};
+} as const;
 
 export const DOCUMENT_STATUSES = {
   ACTIVE: 'active',
@@ -30,4 +40,6 @@ export const ERROR_MESSAGES = {
   SERVER_ERROR: 'Server error. Please try again later.',
   UNAUTHORIZED: 'Your session has expired. Please log in again.',
   REQUIRED_FIELD: 'This field is required.',
-};
+  TIMEOUT_ERROR: 'Request timed out. Please try again.',
+  INVALID_FILE: 'Invalid file. Please select a valid PDF.',
+} as const;
