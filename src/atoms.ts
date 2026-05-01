@@ -1,7 +1,6 @@
 import { atom } from "recoil";
-import type { ChatMessage } from "./types";
 
-export interface Message{
+export interface Message {
     content: string;
     sentBy: 'User' | 'Bot';
     isHistory?: boolean;
@@ -12,12 +11,14 @@ interface DocumentData {
     documentId: string | null;
 }
 
+type SidebarOptionType = 'home' | 'fav' | 'doc';
+
 interface SidebarOption {
-    option: 'home' | 'fav' | 'doc';
+    option: SidebarOptionType;
 }
 
 
-export const loggedInUserName = atom({
+export const loggedInUserName = atom<string>({
     key:"loggedInUserName",
     default:""
 })
@@ -26,39 +27,36 @@ export const activeDocumentData = atom<DocumentData>({
     key:"activeDocumentData",
     default:{documentId:null,documentName:null}
 })
-export const sidebarOpen = atom({
+
+export const sidebarOpen = atom<boolean>({
     key:"sidebarOpen",
     default:true
 })
 
-
-export const messages = atom<Array<Message>>({
+export const messages = atom<Message[]>({
     key:"messages",
     default:[]
 })
 
-
-export const searchResult = atom({
+export const searchResult = atom<unknown>({
     key:'searchResult',
     default:null
 })
 
-export const isAIResultLoading = atom({
+export const isAIResultLoading = atom<boolean>({
     key:'isAIResultLoading',
     default:false
 })
-
 
 export const activeDocumentId = atom<string | null>({
     key:'activeDocumentId',
     default:null
 })
 
-export const isContentModalOpen = atom({
+export const isContentModalOpen = atom<boolean>({
     key:"isContentModalOpen",
     default:false
 })
-
 
 export const isFileSelected = atom<File | null>({
     key:"isFileSelected",
@@ -70,19 +68,17 @@ export const isDeleteModalOpen = atom<boolean>({
     default:false
 })
 
-
 export const activeSidebarOption = atom<SidebarOption>({
     key:"activeSidebarOption",
     default:{option:'home'}
 })
 
-
-export const showIsArchivedDocuments = atom <boolean>({
+export const showIsArchivedDocuments = atom<boolean>({
     key:"showIsArchivedDocuments",
     default:false
 })
 
-export const isHistoryLoading = atom <boolean>({
+export const isHistoryLoading = atom<boolean>({
     key:"isHistoryLoading",
     default:true
 })
