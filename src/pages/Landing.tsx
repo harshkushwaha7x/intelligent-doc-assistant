@@ -108,7 +108,7 @@ export const Landing = () => {
          transition={{ type: "spring", stiffness: 200,bounce:0.1, duration:0.4,delay:0.5,damping:15}}
         className="px-4 rounded-full  bg-blue-600/20  flex gap-2 mb-5 py-2 max-w-fit flex items-center border border-blue-600/30 ">
               <Rocket className="  size-4 text-blue-500/70" />
-              <h1 className="text-sm  font-primary tracking-tighter font-medium text-blue-500/70">sanityAI beta ready to use.</h1>
+              <h1 className="text-sm  font-primary tracking-tighter font-medium text-blue-500/70">DocuChat beta ready to use.</h1>
             </motion.div>
                     <motion.div
           initial={{ opacity: 0, y: 0 }}
@@ -126,7 +126,7 @@ export const Landing = () => {
           <h1 className="max-w-[600px] font-primary font-bold text-5xl md:text-7xl tracking-tighter text-center text-white">
             Just Summarize with{" "}
             <span className="bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text  text-transparent">
-              sanityAI
+              DocuChat
             </span>
           </h1>
           
