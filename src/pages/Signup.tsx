@@ -16,10 +16,29 @@ const Signup: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
+    if (!username || !email || !password) {
+      toast.error("All fields are required!");
+      return;
+    }
 
+    if (username.length < 3) {
+      toast.error("Username must be at least 3 characters");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
       setIsLoading(true)
-      const response = await authService.signup({
+      await authService.signup({
         username,
         email,
         password
