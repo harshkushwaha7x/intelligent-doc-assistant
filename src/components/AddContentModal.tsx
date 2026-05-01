@@ -45,7 +45,7 @@ export const Modal = () => {
       setIsModalOpen(false);
       setFileVal(null);
     } catch (err) {
-      console.error('Upload error:', err);
+      // Error handled by toast
     }
   };
     
