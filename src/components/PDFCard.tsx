@@ -7,13 +7,15 @@ import FavoritesIcon from "./icons/FavourtieIcon"
 import { useSetRecoilState } from "recoil"
 import { activeDocumentData, activeSidebarOption, isDeleteModalOpen } from "../atoms"
 import { toast } from "sonner"
-import axios from "axios"
+import { documentService } from "../services/documentService"
 
-export const PDFCard = ({pdfName,documentId,isArchived}:{
-    pdfName:string,
-    documentId : string,
-    isArchived:boolean
-}) =>{
+interface PDFCardProps {
+    pdfName: string;
+    documentId: string;
+    isArchived: boolean;
+}
+
+export const PDFCard = ({ pdfName, documentId, isArchived }: PDFCardProps) => {
 
 
     const navigate = useNavigate()
@@ -23,19 +25,12 @@ export const PDFCard = ({pdfName,documentId,isArchived}:{
 
     const handleAddToFavouriteClick = async () => {
         try {
-            const response = await toast.promise(
-                 axios.post('https://be1.piyushxz.online/api/v1/favourite', {
-                    document: documentId},
-                    {
-                        headers:{
-                            Authorization:localStorage.getItem("token")
-                        }
-                    
-                }),
+            await toast.promise(
+                documentService.toggleFavorite(documentId),
                 {
-                    loading: isArchived ?`Removing ${pdfName} from your favourites`: `Adding ${pdfName} to your favourites`,
-                    success:isArchived ?`Removed ${pdfName} from your favourites`: `Added ${pdfName} to your favourites`,
-                    error: isArchived ? `Could not remove ${pdfName} from your favourites`:`Could not add ${pdfName} to your favourites`
+                    loading: isArchived ? `Removing ${pdfName} from your favourites` : `Adding ${pdfName} to your favourites`,
+                    success: isArchived ? `Removed ${pdfName} from your favourites` : `Added ${pdfName} to your favourites`,
+                    error: isArchived ? `Could not remove ${pdfName} from your favourites` : `Could not add ${pdfName} to your favourites`
                 }
             );
         } catch (err) {
