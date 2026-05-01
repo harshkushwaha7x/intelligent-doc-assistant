@@ -17,12 +17,22 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!username || !password) {
       toast.error("Username and password are required!");
       return;
     }
-  
+
+    if (username.length < 3) {
+      toast.error("Username must be at least 3 characters");
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
     setIsLoading(true);
     const loadId = toast.loading("Logging In..")
 
@@ -122,9 +132,13 @@ const Login: React.FC = () => {
                   </label>
                 </div>
                 <div className="text-sm">
-                  <a href="javascript:void(0);" className="text-blue-400 hover:text-blue-300 font-semibold">
+                  <button
+                    type="button"
+                    onClick={() => {/* TODO: Implement forgot password */}}
+                    className="text-blue-400 hover:text-blue-300 font-semibold"
+                  >
                     Forgot your password?
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -140,7 +154,13 @@ const Login: React.FC = () => {
               transition={{ delay: 0.8, duration: 0.8, ease: "easeInOut" }}
               className="text-sm text-gray-300 flex justify-center"
             >
-              Don't have an account? <a href="javascript:void(0);" className="text-blue-400 font-semibold hover:underline " onClick={() => navigate('/signup')}>Register here</a>
+              Don't have an account? <button
+                type="button"
+                onClick={() => navigate('/signup')}
+                className="text-blue-400 font-semibold hover:underline"
+              >
+                Register here
+              </button>
             </motion.p>
       </div>
     </div>
