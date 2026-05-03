@@ -2,9 +2,7 @@
 
 > AI-powered document summarization and interactive PDF chat application
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue.svg)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.0.5-646cff.svg)](https://vitejs.dev/)
+
 
 ## Overview
 
