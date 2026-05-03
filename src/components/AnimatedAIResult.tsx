@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
+import { useMemo } from "react";
 
 export const AnimatedAIResult = ({ result = "" }: { result?: string }) => {
     // Enhanced text processing to handle different formatting patterns
-    const processText = (text: string) => {
+    const processText = useMemo(() => (text: string) => {
       // Split by double newlines first (paragraphs)
       const paragraphs = text.split('\n\n');
       
@@ -31,9 +32,9 @@ export const AnimatedAIResult = ({ result = "" }: { result?: string }) => {
           };
         });
       }).flat();
-    };
+    }, []);
   
-    const processedLines = processText(result);
+    const processedLines = useMemo(() => processText(result), [result, processText]);
     let charIndex = 0;
   
     return (
