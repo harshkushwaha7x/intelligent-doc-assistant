@@ -35,6 +35,7 @@ export const Navbar = () => {
               About Us
             </Link>
             <button
+              type="button"
               className="text-white font-primary tracking-tighter transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2"
               onClick={() => navigate("/login")}
             >
@@ -44,7 +45,9 @@ export const Navbar = () => {
 
           <div className="md:hidden flex items-center">
             <button
+              type="button"
               onClick={() => setIsMenuOpen((val) => !val)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="text-white flex items-center rounded-lg text-center transition-all duration-300 hover:bg-blue-600/20 hover:text-blue-500"
             >
               {isMenuOpen ? <PanelTopClose /> : <PanelTopOpen />}
@@ -71,6 +74,7 @@ export const Navbar = () => {
                 About Us
               </Link>
               <button
+                type="button"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium font-primary hover:opacity-80 transition-all duration-300 h-10 px-4 py-2 w-full tracking-tighter"
                 onClick={() => navigate("/login")}
               >
