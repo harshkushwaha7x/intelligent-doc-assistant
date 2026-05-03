@@ -59,13 +59,12 @@ export const Navbar = () => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-[#191919] border-gray-600/40 z-100">
-        <DropdownMenuItem onClick={()=>{navigate('/dashboard')
-                            if(location.pathname !=='dashboard'){
-                                navigate('/dashboard')
-        
-                            }
+        <DropdownMenuItem onClick={()=>{
             setSidebarOption({option:'home'})
             setShowArchivedDocuments(false)
+            if(location.pathname !== '/dashboard'){
+                navigate('/dashboard')
+            }
         }}
          className="w-full flex gap-1 w-full  rounded-sm px-2 py-1.5 text-md outline-none text-white  transition-colors  hover:bg-gray-800 rounded-lg transition-all ease-in-out cursor-pointer">
                             <HomeIcon className="size-6 text-inherit"/>
@@ -73,12 +72,11 @@ export const Navbar = () => {
                     
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={()=>{
-                    if(location.pathname !=='dashboard'){
+                    setSidebarOption({option:'fav'})
+                    setShowArchivedDocuments(true)
+                    if(location.pathname !== '/dashboard'){
                         navigate('/dashboard')
-
                     }
-                    setSidebarOption({option:'home'})
-                    setShowArchivedDocuments(false)
                 }}
                  className="w-full flex gap-1 w-full  rounded-sm px-2 py-1.5 text-md outline-none text-white  transition-colors  hover:bg-gray-800 rounded-lg transition-all ease-in-out cursor-pointer">
                             <FavoritesIcon className="size-6 text-inherit"/>
@@ -88,7 +86,7 @@ export const Navbar = () => {
                 <DropdownMenuSeparator
                  className="bg-gray-600/30" />
                 <DropdownMenuItem  onClick={()=>{
-                    localStorage.removeItem("token")
+                    sessionStorage.removeItem("token")
                     navigate('/')
                 }}
                  className="w-full flex gap-1 w-full  rounded-sm px-2 py-1.5 text-md outline-none text-white hover:text-red-600 transition-colors  hover:bg-gray-800 rounded-lg transition-all ease-in-out cursor-pointer">
