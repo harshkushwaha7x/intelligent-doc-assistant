@@ -4,9 +4,9 @@ import { SidebarOpenIcon } from "./icons/SidebarOpenIcon";
 import HomeIcon from "./icons/HomeIcon";
 import { SidebarOption } from "./SidebarOption";
 import FavoritesIcon from "./icons/FavourtieIcon";
-import {  motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { DoucumentIcon } from "./icons/DocuementIcon";
+import { DocumentIcon } from "./icons/DocuementIcon";
 
 export const Sidebar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useRecoilState(sidebarOpen);
@@ -32,7 +32,13 @@ export const Sidebar = () => {
             aria-label="Main navigation"
         >
             <div className="flex px-2 py-2 items-center border-b border-gray-300/20">
-                <SidebarOpenIcon onClick={() => setIsSidebarOpen(val => !val)} />
+                <button
+                    onClick={() => setIsSidebarOpen(val => !val)}
+                    aria-label="Toggle sidebar"
+                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                >
+                    <SidebarOpenIcon />
+                </button>
                 <h3 className="text-xl font-bold tracking-tighter font-primary text-white lg:text-2xl">
                     Menu
                 </h3>
@@ -40,7 +46,7 @@ export const Sidebar = () => {
 
             <div>
                 {id && activeDocData.documentName && (
-                    <SidebarOption variant="doc" text={activeDocData.documentName} icon={<DoucumentIcon />} />
+                    <SidebarOption variant="doc" text={activeDocData.documentName} icon={<DocumentIcon />} />
                 )}
                 <SidebarOption
                     onClick={() => {
