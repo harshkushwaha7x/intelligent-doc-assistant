@@ -15,7 +15,7 @@ export const useErrorHandler = (config: ErrorConfig = {}) => {
   const handleError = useCallback((error: unknown) => {
     const axiosError = error as AxiosError;
 
-    if (logError) {
+    if (logError && process.env.NODE_ENV === 'development') {
       console.error('Error:', error);
     }
 
