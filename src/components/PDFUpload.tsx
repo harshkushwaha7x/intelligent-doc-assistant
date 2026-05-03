@@ -1,22 +1,38 @@
 import { useSetRecoilState } from "recoil";
 import { isFileSelected } from "../atoms";
 import { toast } from "sonner";
+import { validateFile } from "../utils/validation";
 
 const PDFUpload = () => {
     const setFile = useSetRecoilState(isFileSelected)
-    const handleDocumentInput = (e:React.FormEvent<HTMLInputElement>)=>{
-
+    
+    const handleDocumentInput = (e: React.FormEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement & {
-            files:FileList
+            files: FileList
         }
-        setFile(target.files[0])
-        toast.success(`${target.files[0].name} Selected`)
+        
+        if (!target.files || target.files.length === 0) {
+            return;
+        }
+
+        const file = target.files[0];
+        const validation = validateFile(file);
+        
+        if (!validation.valid) {
+            toast.error(validation.error);
+            return;
+        }
+
+        setFile(file);
+        toast.success(`${file.name} Selected`);
     }
+
     return (
       <div className="flex items-center justify-center w-full">
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center text-[#191919] w-2/3 h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-[#191919]"
+          className="flex flex-col items-center justify-center text-[#191919] w-2/3 h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-[#191919] hover:bg-[#252525] transition-colors"
+          aria-label="Upload PDF document"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
@@ -38,11 +54,17 @@ const PDFUpload = () => {
               <span className="font-semibold">Click to upload</span> or drag and drop
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              PDF only (Limit is 4mb for now)
+              PDF only (Maximum 4MB)
             </p>
           </div>
-          <input onChange={handleDocumentInput}
-          id="dropzone-file" type="file" accept="application/pdf" className="hidden" />
+          <input 
+            onChange={handleDocumentInput}
+            id="dropzone-file" 
+            type="file" 
+            accept="application/pdf" 
+            className="hidden"
+            aria-label="PDF file input"
+          />
         </label>
       </div>
     );
