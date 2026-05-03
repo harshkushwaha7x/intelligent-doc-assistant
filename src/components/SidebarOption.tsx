@@ -2,18 +2,19 @@ import { ReactElement } from "react"
 import { useRecoilValue } from "recoil"
 import { activeSidebarOption } from "../atoms"
 
+interface SidebarOptionProps {
+    text: string;
+    icon: ReactElement;
+    variant: "home" | "fav" | "doc";
+    onClick?: () => void;
+}
+
 export const SidebarOption = ({
     text,
     icon,
     variant,
     onClick
-}:
-{
-    text:string,
-    icon : ReactElement,
-    variant : "home" | "fav" | "doc",
-    onClick ?: ()=>void
-})=>{
+}: SidebarOptionProps) => {
 
     const sidebarOpt = useRecoilValue(activeSidebarOption)
     
