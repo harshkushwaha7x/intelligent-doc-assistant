@@ -1,7 +1,6 @@
 export const Footer = () => {
     return (
-      <>
-        <div className="border-t border-white border-opacity-30 bg-black">
+      <div className="border-t border-white border-opacity-30 bg-black">
      
           <div className="flex flex-wrap items-center justify-between px-4 py-6 lg:px-8">
             
@@ -83,18 +82,8 @@ export const Footer = () => {
     </div>
   </div>
 </footer>
-
-
           </div>
         </div>
-  
-        
-        {/* <div className="flex justify-center items-center py-4 bg-backgroundColor">
-          <h1 className="text-lg font-satoshi tracking-tighter font-black text-white">
-            Made with <span className="text-red-500">&#x1F9E1;</span> by Piyush
-          </h1>
-        </div> */}
-      </>
     );
   };
   
