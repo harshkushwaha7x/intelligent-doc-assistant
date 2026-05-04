@@ -125,6 +125,7 @@ const Aboutus: React.FC = () => {
                   className="w-full p-2 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-white bg-[#191919] text-white mb-4"
                   id="exampleFormControlInput1"
                   placeholder="name@example.com"
+                  aria-label="Email address"
                 />
                 <label htmlFor="exampleFormControlTextarea1" className="block text-lg font-primary tracking-tighter font-medium mb-2 text-white">Your Remarks</label>
                 <textarea
@@ -132,10 +133,12 @@ const Aboutus: React.FC = () => {
                   id="exampleFormControlTextarea1"
                   rows={3}
                   placeholder="Your comments here"
+                  aria-label="Your remarks"
                 ></textarea>
                 <button
                   type="button"
                   className="text-white font-primary tracking-tighter bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  aria-label="Submit feedback"
                 >
                   Submit
                 </button>
