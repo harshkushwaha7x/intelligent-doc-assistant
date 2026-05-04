@@ -62,7 +62,12 @@ const Features = () => {
               <div className="group relative">
                 {/* Icon */}
                 <span className="inline-block mb-6 mx-auto w-16 h-16">
-                  <img src={feature.icon} alt={feature.title} className="max-w-full h-auto" />
+                  <img 
+                    src={feature.icon} 
+                    alt={`${feature.title} icon`} 
+                    className="max-w-full h-auto"
+                    loading="lazy"
+                  />
                 </span>
                 {/* Title */}
                 <h4 className="font-primary font-semibold text-xl mb-4">{feature.title}</h4>

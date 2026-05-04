@@ -36,7 +36,12 @@ export const Features2 = () => {
                     {featuresData.map(({ icon, title, description }) => (
                         <div key={title} className="rounded-xl bg-black border font-primary tracking-tight border-white/15 px-5 py-10 text-center">
                             <div className="inline-flex h-14 w-14  justify-center items-center rounded-lg border border-white/15 p-2">
-                                <img src={icon} alt={title} className="h-10 w-10" />
+                                <img 
+                                    src={icon} 
+                                    alt={`${title} icon`} 
+                                    className="h-10 w-10"
+                                    loading="lazy"
+                                />
                             </div>
                             <h3 className="mt-6 text-lg font-bold">{title}</h3>
                             <p className="mt-2 text-white/70">{description}</p>
