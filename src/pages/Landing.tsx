@@ -201,7 +201,9 @@ export const Landing = () => {
                         }}
             className="w-[90vw] md:w-[80vw] lg:w-[70vw] border border-white/20 p-2.5 rounded-xl mt-3">
                 <div style={{backgroundImage :`url(${ss2})`}}
-                className="aspect-video bg-cover border border-white/20 rounded-lg">
+                className="aspect-video bg-cover border border-white/20 rounded-lg"
+                role="img"
+                aria-label="DocuChat application screenshot showing document chat interface">
 
                 </div>
             </motion.div>
