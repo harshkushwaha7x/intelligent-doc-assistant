@@ -1,5 +1,9 @@
 const getEnvVar = (key: string, defaultValue?: string): string => {
   const value = import.meta.env[key] || defaultValue;
+  if (!value && import.meta.env.MODE === 'production') {
+    console.error(`Missing required environment variable: ${key}`);
+    return defaultValue || '';
+  }
   if (!value) {
     throw new Error(`Missing required environment variable: ${key}`);
   }
@@ -8,10 +12,12 @@ const getEnvVar = (key: string, defaultValue?: string): string => {
 
 export const CONFIG = {
   API_URL: getEnvVar('VITE_API_URL', 'https://be1.piyushxz.online/api/v1'),
-  APP_NAME: getEnvVar('VITE_APP_NAME', 'Intelligent Document Assistant'),
+  APP_NAME: getEnvVar('VITE_APP_NAME', 'DocuChat'),
   POLLING_INTERVAL: 10000,
   REQUEST_TIMEOUT: 10000,
   MAX_FILE_SIZE: 4 * 1024 * 1024,
+  IS_PRODUCTION: import.meta.env.MODE === 'production',
+  IS_DEVELOPMENT: import.meta.env.MODE === 'development',
 } as const;
 
 export const ROUTES = {
